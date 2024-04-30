@@ -1,22 +1,38 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
+import {
+  addGoal
+} from '../../Reducers/goalsSlices';
+import { useRef } from 'react';
 
-function Formulario() {
+function Formulario(props) {
+
+  const inputRefName = useRef();
+  const inputRefDescription = useRef();
+  const inputRefDueDate = useRef();
+
+  const dispatch = useDispatch();
+
+  const addItem = (e) =>{
+    e.preventDefault();
+    dispatch(addGoal({'name':inputRefName.current.value, 'description':inputRefDescription.current.value, 'dueDate':inputRefDueDate.current.value}));
+  }
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Name</Form.Label>
-        <Form.Control type="email" placeholder="Enter name" />
+        <Form.Control type="text" placeholder="Enter name" ref={inputRefName} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Description</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <textarea placeholder="Enter Description..." ref={inputRefDescription} textarea/>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicDate">
         <Form.Label>Due Date</Form.Label>
-        <Form.Control type="date" placeholder="Due Date" />
+        <Form.Control type="date" placeholder="Due Date" ref={inputRefDueDate}/>
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="info" onClick={addItem} type="submit">
         Create
       </Button>
     </Form>
