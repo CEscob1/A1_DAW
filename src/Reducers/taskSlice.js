@@ -1,23 +1,23 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-export const goalsSlice = createSlice({
-    name: 'goals',    initialState: {
+export const taskSlice = createSlice({
+    name: 'tasks',    initialState: {
         value: [
             {
-            'type':'GOAL',    
+            'type':'TASK', 
             'name':'Nombre...',
             'description':'Descripcion...',
-            'dueDate':'Fecha...'
+            'dueDate':'Fecha...'    
             }
         ]
     },
     reducers:{
-        addGoal: (state, action) => {
+        addTask: (state, action) => {
             state.value.push(action.payload)
         }
     }
 })
 
-export const {addGoal} = goalsSlice.actions;
+export const {addTask} = taskSlice.actions;
 
-export default goalsSlice.reducer;
+export default taskSlice.reducer;
