@@ -4,8 +4,10 @@ import { addGoal } from "../../Reducers/goalsSlices";
 import { addTask } from "../../Reducers/taskSlice";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useState } from 'react';
 
 function Formulario(props) {
+  const [idCounter, setIdCounter] = useState(0);
   const inputRefName = useRef();
   const inputRefDescription = useRef();
   const inputRefDueDate = useRef();
@@ -14,21 +16,21 @@ function Formulario(props) {
 
   const addItem = (e) => {
     e.preventDefault();
-    dispatch({
-      type: 'ADD_GOAL_AND_TASK', 
-      payload: {
-        goal: {
-          name: inputRefName.current.value,
-          description: inputRefDescription.current.value,
-          dueDate: inputRefDueDate.current.value
-        },
-        task: {
-          name: inputRefName.current.value,
-          description: inputRefDescription.current.value,
-          dueDate: inputRefDueDate.current.value
-        }
-      }
-    });
+    dispatch(
+      addGoal({
+        id: idCounter,
+        name: inputRefName.current.value,
+        description: inputRefDescription.current.value,
+        dueDate: inputRefDueDate.current.value
+      }),
+      addTask({
+        id: idCounter,
+        name: inputRefName.current.value,
+        description: inputRefDescription.current.value,
+        dueDate: inputRefDueDate.current.value
+      })
+    );
+    setIdCounter(idCounter + 1);
   };
     
   return (
@@ -58,3 +60,4 @@ function Formulario(props) {
 }
 
 export default Formulario;
+
