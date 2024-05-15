@@ -22,20 +22,22 @@ function App() {
           {goals.map((goal) => (
                   <Item
                     key={goal.id}
-                    type={goal.type} 
+                    id={goal.id} 
+                    type={goal.type}
                     name={goal.name}
                     description={goal.description}
                     dueDate={goal.dueDate}
-                  ></Item>
+                  />
                 ))}
-            {tasks.map((task) => (
+                {tasks.map((task) => (
                   <Item
                     key={task.id}
-                    type={task.type} 
+                    id={task.id} 
+                    type={task.type}
                     name={task.name}
                     description={task.description}
                     dueDate={task.dueDate}
-                  ></Item>
+                  />
                 ))}
           </div>
         </div>
