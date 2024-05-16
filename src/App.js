@@ -5,12 +5,40 @@ import Menu from "./components/Menu/Menu";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import {
+  initAddTodo,
+} from './Reducers/taskSlice'
+import {
+} from './Reducers/goalsSlices'
 
 
 function App() {
   const goals = useSelector((state)=>state.goals.value)
   const tasks = useSelector((state)=>state.tasks.value)
+  const dispatch = useDispatch();
+
+  function iniFetch (){
+    fetch("http://localhost:3001/task/getTasks",{
+      method:"GET",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"k3zh^^(s.d;HyURN"
+      }
+    }).then((Response)=>{
+      Response.json()
+    }).then((Response)=>{
+      Response.map((task)=>{
+        dispatch((initAddTodo(task)))
+      })
+    }).catch((err)=>{
+      console.log(err)
+    })  
+  }
+  useEffect(()=>{
+    iniFetch();
+  })
   return (
 <div className="App">
   <Menu></Menu>
